@@ -54,6 +54,28 @@ export class AuthService {
       });
   }
 
+  resendCodeUser(user: { username: string; }) {
+    const { username } = user;
+
+    const userData = {
+      Username: username,
+      Pool: this.userPool,
+    };
+
+    const newUser = new CognitoUser(userData);
+
+    return new Promise((resolve, reject) => {
+        return newUser.resendConfirmationCode( (err, result) => {
+          if (err) {
+             reject(err);
+          }
+          if (!err) {
+             resolve(result);
+          }
+        });
+    });
+  }
+  
   confirmUser(user: { username: string; code: string }) {
     const { username, code } = user;
 

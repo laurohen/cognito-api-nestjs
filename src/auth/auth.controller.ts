@@ -12,6 +12,13 @@ export class AuthController {
     return await this.authService.registerUser(registerRequest);
   }
 
+  @Post('resendCodeUser')
+  async resendCodeUser(
+    @Body() resendRequest: { username: string; },
+  ) {
+    return await this.authService.resendCodeUser(resendRequest);
+  }
+
   @Post('confirmcode')
   async confirmcode(
     @Body() confirmRequest: { username: string; code: string; },
